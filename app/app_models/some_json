@@ -1,0 +1,52 @@
+{
+  "Train Model": {
+    "Route": "/train_model/<model_name>",
+    "HTTP Method": "POST",
+    "Request Body": {
+      "hyperparameters": {
+        "parameter1": 0.1,
+        "parameter2": 100
+      },
+      "training_data": {
+        "features": [],
+        "labels": []
+      }
+    },
+    "Response": {
+      "message": "Model trained successfully",
+      "model_id": "unique_model_identifier"
+    }
+  },
+  "List of models": {
+    "Route": "/list_models",
+    "HTTP Method": "GET",
+    "Response": {
+      "models": ["LightGBM", "CatBoost", "LogReg"]
+    }
+  },
+  "Predictions": {
+    "Route": "/predict/<model_name>",
+    "HTTP Method": "POST",
+    "Request Body": {
+      "input_data": {
+        "features": []
+      }
+    },
+    "Response": {
+      "prediction": [0.75, 0.25]
+    }
+  },
+  "Retraining and Model Deletion": {
+    "Retrain": {
+      "Route": "/retrain_model/<model_name>",
+      "HTTP Method": "POST",
+      "Request Body": {},
+      "Response": {}
+    },
+    "Delete": {
+      "Route": "/delete_model/<model_name>",
+      "HTTP Method": "DELETE",
+      "Response": {}
+    }
+  }
+}
