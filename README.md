@@ -1,5 +1,5 @@
-# MLOps
-HW for MLOps in HSE FTDA
+# App
+Project within MLOps subject in HSE
 
 ! All the code is checked with `flake8` and formatted with `black`
 
