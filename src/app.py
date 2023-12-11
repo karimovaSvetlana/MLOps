@@ -1,8 +1,8 @@
 from typing import List, Dict, Union
 from fastapi import FastAPI, HTTPException
 
-from src.helpers.create_models import create_model
-from src.helpers.typing_models import (
+from helpers.create_models import create_model
+from helpers.typing_models import (
     LinRegHyperparameters,
     DecisionTreeHyperparameters,
     RandomForestHyperparameters,
@@ -11,7 +11,7 @@ from src.helpers.typing_models import (
     ModelList,
     PredictionData
 )
-from src.helpers.save_minio import FileSave
+from helpers.save_minio import FileSave
 
 app = FastAPI()
 file_saver = FileSave('http://192.168.1.68:9000', 'minioadmin', 'minioadmin')
