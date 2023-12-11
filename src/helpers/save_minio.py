@@ -3,7 +3,7 @@ from minio.error import S3Error
 import pickle
 
 minio_client = Minio(
-    endpoint='localhost:9000',
+    endpoint='http://127.0.0.1:9000',
     access_key='minioadmin',
     secret_key='minioadmin',
     secure=True  # Set to True if using HTTPS
