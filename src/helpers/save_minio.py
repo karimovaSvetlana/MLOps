@@ -6,7 +6,7 @@ minio_client = Minio(
     endpoint='http://127.0.0.1:9000',
     access_key='minioadmin',
     secret_key='minioadmin',
-    secure=True  # Set to True if using HTTPS
+    secure=False
 )
 
 
