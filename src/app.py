@@ -139,7 +139,8 @@ def delete_model(model_name: str):
         raise HTTPException(status_code=404, detail="Model not found")
     file_saver.delete_model_from_minio(f"{model_name}.pkl")
     return {
-        "model_name": model_name
+        "model_name": model_name,
+        "hyperparameters": ""
     }
 
 
