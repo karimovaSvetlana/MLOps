@@ -39,7 +39,8 @@ class FileSave:
     def list_of_models_minio(self):
         try:
             objects = self.minio_client.list_objects(self.bucket_name, recursive=True)
-            return list(objects)
+            model_names = [obj.object_name.replace('.pkl', '') for obj in objects if isinstance(obj.object_name, str) and obj.object_name]
+            return model_names
 
         except S3Error as e:
             print(f"Error getting list of models: {e}")

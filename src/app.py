@@ -17,7 +17,7 @@ app = FastAPI()
 file_saver = FileSave('127.0.0.1:9000', 'minioadmin', 'minioadmin')
 # шобы не падало надо поднять сервер: minio server /Users/isupport/Desktop/code/MLOps. Если сервер не стоит - это плохо
 
-trained_models = {}
+# trained_models = {}
 
 
 @app.post("/train_model/{model_name}", response_model=ModelInfo)
@@ -49,9 +49,9 @@ def train_model(
     model.fit(training_data.features, training_data.labels)
 
     model_name = (
-        f"{model_name}_{len([i for i in trained_models.keys() if model_name in i]) + 1}"
+        f"{model_name}_{len([i for i in file_saver.list_of_models_minio() if model_name in i]) + 1}"
     )
-    trained_models[model_name] = {"model": model, "hyperparameters": hyperparameters}
+    # trained_models[model_name] = {"model": model, "hyperparameters": hyperparameters}
 
     file_saver.save_model_to_minio(model, model_name)
 
@@ -61,7 +61,8 @@ def train_model(
 # Endpoint to list available models
 @app.get("/list_models", response_model=ModelList)
 def list_models():
-    return {"models": list(trained_models.keys())}
+    models_list = file_saver.list_of_models_minio()
+    return {"models": models_list}
 
 
 # Endpoint to make predictions using a specific model
@@ -83,11 +84,7 @@ def predict(model_name: str, prediction_data: PredictionData):
         dict with predictions
     </pre>
     """
-    file_saver.load_model_from_minio(model_name)
-
-    if model_name not in trained_models:
-        raise HTTPException(status_code=404, detail="Model not found")
-    model = trained_models[model_name]["model"]
+    model = file_saver.load_model_from_minio(model_name)
     prediction = model.predict(prediction_data.features)
     return {"prediction": prediction}
 
@@ -118,11 +115,13 @@ def retrain_model(
         dict with name of the trained model and it's hyperparameters
     </pre>
     """
-    if model_name not in trained_models:
+    if model_name not in file_saver.list_of_models_minio():
         raise HTTPException(status_code=404, detail="Model not found")
-    model = trained_models[model_name]["model"]
+    model = file_saver.load_model_from_minio(model_name)
     model.fit(training_data.features, training_data.labels)
-    trained_models[model_name]["hyperparameters"] = hyperparameters
+
+    file_saver.delete_model_from_minio(model_name)
+    file_saver.save_model_to_minio(model, model_name)
     return {"model_name": model_name, "hyperparameters": hyperparameters}
 
 
@@ -140,13 +139,13 @@ def delete_model(model_name: str):
         dict of model name and its hyperparameters
     </pre>
     """
-    file_saver.delete_model_from_minio(model_name)
-    if model_name not in trained_models:
+    models_list = file_saver.list_of_models_minio()
+    if model_name not in models_list:
         raise HTTPException(status_code=404, detail="Model not found")
-    deleted_model_info = trained_models.pop(model_name)
+    file_saver.delete_model_from_minio(f"{model_name}.pkl")
+    # deleted_model_info = models_list.pop(model_name)
     return {
-        "model_name": model_name,
-        "hyperparameters": deleted_model_info["hyperparameters"],
+        "model_name": model_name
     }
 
 
