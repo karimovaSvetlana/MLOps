@@ -2,12 +2,12 @@ from minio import Minio
 from minio.error import S3Error
 import pickle
 
-minio_client = Minio(
-    endpoint='http://127.0.0.1:9000',
-    access_key='minioadmin',
-    secret_key='minioadmin',
-    secure=False
-)
+# minio_client = Minio(
+#     endpoint='http://127.0.0.1:9000',
+#     access_key='minioadmin',
+#     secret_key='minioadmin',
+#     secure=False
+# )
 
 
 class FileSave:

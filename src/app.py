@@ -14,7 +14,7 @@ from helpers.typing_models import (
 from helpers.save_minio import FileSave
 
 app = FastAPI()
-file_saver = FileSave('http://192.168.1.68:9000', 'minioadmin', 'minioadmin')
+file_saver = FileSave('http://127.0.0.1:9000', 'minioadmin', 'minioadmin')
 
 trained_models = {}
 
