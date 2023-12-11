@@ -1,13 +1,7 @@
 from minio import Minio
 from minio.error import S3Error
 import pickle
-
-# minio_client = Minio(
-#     endpoint='http://127.0.0.1:9000',
-#     access_key='minioadmin',
-#     secret_key='minioadmin',
-#     secure=False
-# )
+import io
 
 
 class FileSave:
@@ -17,11 +11,11 @@ class FileSave:
 
     def save_model_to_minio(self, model, model_name):
         model_bytes = pickle.dumps(model)
-
         object_name = f"{model_name}.pkl"
 
         try:
-            self.minio_client.put_object(self.bucket_name, object_name, model_bytes, len(model_bytes))
+            model_data = io.BytesIO(model_bytes)
+            self.minio_client.put_object(self.bucket_name, object_name, model_data, len(model_bytes))
             print(f"Model '{model_name}' uploaded to Minio bucket '{self.bucket_name}'")
         except S3Error as e:
             print(f"Error uploading model: {e}")
