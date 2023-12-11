@@ -17,6 +17,10 @@ app = FastAPI()
 file_saver = FileSave('127.0.0.1:9000', 'minioadmin', 'minioadmin')
 # шобы не падало надо поднять сервер: minio server /Users/isupport/Desktop/code/MLOps. Если сервер не стоит - это плохо
 
+# JSON с моделью и гиперпараметрами по pydantic - СЕЙЧАС ПОЛОМАНО так как удалила хранение в оперативке
+# также jsonф с примерами создать для версионирования датасетов
+# собрать все в docker (и запустить в docker-compose), как запушить в docker-hub?
+
 
 @app.post("/train_model/{model_name}", response_model=ModelInfo)
 def train_model(
@@ -140,7 +144,7 @@ def delete_model(model_name: str):
     file_saver.delete_model_from_minio(f"{model_name}.pkl")
     return {
         "model_name": model_name,
-        "hyperparameters": ""
+        "hyperparameters": {}
     }
 
 
