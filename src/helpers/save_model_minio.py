@@ -36,6 +36,14 @@ class FileSave:
 
         return loaded_model
 
+    def list_of_models_minio(self):
+        try:
+            objects = self.minio_client.list_objects(self.bucket_name, recursive=True)
+            return list(objects)
+
+        except S3Error as e:
+            print(f"Error getting list of models: {e}")
+
     def delete_model_from_minio(self, model_name):
         object_name = f"{model_name}.pkl"
 

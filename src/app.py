@@ -11,10 +11,11 @@ from helpers.typing_models import (
     ModelList,
     PredictionData
 )
-from helpers.save_minio import FileSave
+from helpers.save_model_minio import FileSave
 
 app = FastAPI()
 file_saver = FileSave('127.0.0.1:9000', 'minioadmin', 'minioadmin')
+# шобы не падало надо поднять сервер: minio server /Users/isupport/Desktop/code/MLOps. Если сервер не стоит - это плохо
 
 trained_models = {}
 
@@ -139,10 +140,10 @@ def delete_model(model_name: str):
         dict of model name and its hyperparameters
     </pre>
     """
+    file_saver.delete_model_from_minio(model_name)
     if model_name not in trained_models:
         raise HTTPException(status_code=404, detail="Model not found")
     deleted_model_info = trained_models.pop(model_name)
-    file_saver.delete_model_from_minio(model_name)
     return {
         "model_name": model_name,
         "hyperparameters": deleted_model_info["hyperparameters"],
