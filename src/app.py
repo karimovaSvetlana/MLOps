@@ -17,8 +17,6 @@ app = FastAPI()
 file_saver = FileSave('127.0.0.1:9000', 'minioadmin', 'minioadmin')
 # шобы не падало надо поднять сервер: minio server /Users/isupport/Desktop/code/MLOps. Если сервер не стоит - это плохо
 
-# trained_models = {}
-
 
 @app.post("/train_model/{model_name}", response_model=ModelInfo)
 def train_model(
@@ -51,21 +49,18 @@ def train_model(
     model_name = (
         f"{model_name}_{len([i for i in file_saver.list_of_models_minio() if model_name in i]) + 1}"
     )
-    # trained_models[model_name] = {"model": model, "hyperparameters": hyperparameters}
 
     file_saver.save_model_to_minio(model, model_name)
 
     return {"model_name": model_name, "hyperparameters": hyperparameters}
 
 
-# Endpoint to list available models
 @app.get("/list_models", response_model=ModelList)
 def list_models():
     models_list = file_saver.list_of_models_minio()
     return {"models": models_list}
 
 
-# Endpoint to make predictions using a specific model
 @app.post("/predict/{model_name}", response_model=Dict[str, List[float]])
 def predict(model_name: str, prediction_data: PredictionData):
     """
@@ -139,17 +134,12 @@ def delete_model(model_name: str):
         dict of model name and its hyperparameters
     </pre>
     """
-    models_list = file_saver.list_of_models_minio()
-    if model_name not in models_list:
-        raise HTTPException(status_code=404, detail="Model not found")
     file_saver.delete_model_from_minio(f"{model_name}.pkl")
-    # deleted_model_info = models_list.pop(model_name)
     return {
         "model_name": model_name
     }
 
 
-# Implement Swagger documentation
 if __name__ == "__main__":
     import uvicorn
 
