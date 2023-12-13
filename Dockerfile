@@ -6,7 +6,7 @@ COPY . .
 
 RUN pip install --upgrade pip
 RUN pip install poetry
-RUN poetry install --no-root
+RUN poetry install --no-root --no-dev
 
 COPY . /app
 
