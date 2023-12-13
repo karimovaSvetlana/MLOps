@@ -2,8 +2,9 @@ from sklearn.ensemble import RandomForestRegressor
 from sklearn.linear_model import LinearRegression
 from sklearn.tree import DecisionTreeRegressor
 from typing import Union
+from fastapi import HTTPException
 
-from helpers.typing_models import LinRegHyperparameters, DecisionTreeHyperparameters, RandomForestHyperparameters
+from typing_models import LinRegHyperparameters, DecisionTreeHyperparameters, RandomForestHyperparameters
 
 
 def create_model(

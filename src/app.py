@@ -50,10 +50,7 @@ def train_model(
     model = create_model(model_name, hyperparameters)
     model.fit(training_data.features, training_data.labels)
 
-    model_name = (
-        f"{model_name}_{len([i for i in file_saver.list_of_models_minio() if model_name in i]) + 1}"
-    )
-
+    model_name = f"{model_name}_{len([i for i in file_saver.list_of_models_minio() if model_name in i]) + 1}"
     file_saver.save_model_to_minio(model, model_name, hyperparameters)
 
     return {"model_name": model_name, "hyperparameters": hyperparameters}
