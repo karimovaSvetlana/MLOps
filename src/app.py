@@ -114,12 +114,16 @@ def retrain_model(
         dict with name of the trained model and it"s hyperparameters
     </pre>
     """
+    # models_list = file_saver.list_of_models_minio()
+    # model_name = f"{model_name}_{len([i for i in models_list if model_name in i]) + 1}"
     if model_name not in file_saver.list_of_models_minio():
         raise HTTPException(status_code=404, detail="Model not found")
-    model, hyperparameters = file_saver.load_model_from_minio(model_name)
-    model.fit(training_data.features, training_data.labels)
 
     file_saver.delete_model_from_minio(model_name)
+
+    model = create_model(model_name, hyperparameters)
+    model.fit(training_data.features, training_data.labels)
+
     file_saver.save_model_to_minio(model, model_name, hyperparameters)
     return {"model_name": model_name, "hyperparameters": hyperparameters}
 
@@ -142,8 +146,9 @@ def delete_model(model_name: str):
     if model_name not in models_list:
         raise HTTPException(status_code=404, detail="Model not found")
 
-    model, hyperparameters = file_saver.load_model_from_minio(model_name)
     file_saver.delete_model_from_minio(f"{model_name}.pkl")
+
+    model, hyperparameters = file_saver.load_model_from_minio(model_name)
     return {
         "model_name": model_name,
         "hyperparameters": hyperparameters
