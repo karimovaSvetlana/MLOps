@@ -6,7 +6,8 @@ COPY . /app/
 
 RUN pip install --upgrade pip
 RUN pip install poetry
-RUN poetry install --no-root
+RUN pip install uvicorn
+RUN poetry install
 
 COPY . /app
 
