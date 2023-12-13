@@ -9,8 +9,9 @@ class FileSave:
         self.minio_client = Minio(minio_host, access_key=access_key, secret_key=secret_key, secure=secure)
         self.bucket_name = "models"
 
-    def save_model_to_minio(self, model, model_name):
-        model_bytes = pickle.dumps(model)
+    def save_model_to_minio(self, model, model_name, hyperparameters):
+        model_info = {'model': model, 'hyperparameters': hyperparameters}
+        model_bytes = pickle.dumps(model_info)
         object_name = f"{model_name}.pkl"
 
         try:
@@ -32,9 +33,9 @@ class FileSave:
             return None
 
         with open(local_model_path, 'rb') as file:
-            loaded_model = pickle.load(file)
+            loaded_model_info = pickle.load(file)
 
-        return loaded_model
+        return loaded_model_info['model'], loaded_model_info['hyperparameters']
 
     def list_of_models_minio(self):
         try:
