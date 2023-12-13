@@ -14,7 +14,7 @@ from helpers.typing_models import (
 from helpers.save_model_minio import FileSave
 
 app = FastAPI()
-file_saver = FileSave("127.0.0.1:9000", "minioadmin", "minioadmin")
+file_saver = FileSave("minio:9000", "minioadmin", "minioadmin")
 
 
 @app.post("/train_model/{model_name}", response_model=ModelInfo)
