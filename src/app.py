@@ -39,13 +39,15 @@ def train_model(
                 "labels": [2.5, 3.5, 4.5]
             }
     Returns:
-        dict with name of the trained model and it"s hyperparameters
+        dict with name of the trained model and it's hyperparameters
     </pre>
     """
     model = create_model(model_name, hyperparameters)
     model.fit(training_data.features, training_data.labels)
 
-    model_name = f"{model_name}_{len([i for i in file_saver.list_of_models_minio() if model_name in i]) + 1}"
+    model_list = file_saver.list_of_models_minio() if file_saver.list_of_models_minio()) is not None else []
+
+    model_name = f"{model_name}_{len([i for i in model_list if model_name in i]) + 1}"
     file_saver.save_model_to_minio(model, model_name, hyperparameters)
 
     return {"model_name": model_name, "hyperparameters": hyperparameters}
@@ -103,7 +105,7 @@ def retrain_model(
                 "labels": [2.5, 3.5, 4.5]
             }
     Returns:
-        dict with name of the trained model and it"s hyperparameters
+        dict with name of the trained model and it's hyperparameters
     </pre>
     """
     if model_name not in file_saver.list_of_models_minio():

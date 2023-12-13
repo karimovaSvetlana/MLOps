@@ -47,7 +47,9 @@ class TrainingData(BaseModel):
 class ModelInfo(BaseModel):
     model_name: str
     hyperparameters: Union[
-        LinRegHyperparameters, DecisionTreeHyperparameters, RandomForestHyperparameters
+        LinRegHyperparameters,
+        DecisionTreeHyperparameters,
+        RandomForestHyperparameters
     ]
 
 

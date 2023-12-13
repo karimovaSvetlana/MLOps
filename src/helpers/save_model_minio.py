@@ -7,7 +7,7 @@ import io
 class FileSave:
     def __init__(self, minio_host, access_key, secret_key, secure=False):
         self.minio_client = Minio(minio_host, access_key=access_key, secret_key=secret_key, secure=secure)
-        self.bucket_name = "models"
+        self.bucket_name = "data"
 
     def save_model_to_minio(self, model, model_name, hyperparameters):
         model_info = {'model': model, 'hyperparameters': hyperparameters}

@@ -1,22 +1,20 @@
 version: "3"
 services:
   app:
-    networks:
-      - default
+    container_name: app_container
     build:
       context: .
       dockerfile: Dockerfile
     ports:
       - "8000:8000"
     environment:
-      MINIO_HOST: "127.0.0.1:9000"
+      MINIO_HOST: "minio:9000"
       MINIO_ROOT_USER: "minioadmin"
       MINIO_ROOT_PASSWORD: "minioadmin"
     depends_on:
       - minio
   minio:
-    networks:
-      - default
+    container_name: minio_container
     image: "minio/minio:latest"
     ports:
       - "9000:9000"
