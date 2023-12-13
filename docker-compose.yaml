@@ -8,8 +8,8 @@ services:
       - "8000:8000"
     environment:
       MINIO_HOST: "127.0.0.1:9000"
-      MINIO_ACCESS_KEY: "minioadmin"
-      MINIO_SECRET_KEY: "minioadmin"
+      MINIO_ROOT_USER: "minioadmin"
+      MINIO_ROOT_PASSWORD: "minioadmin"
     depends_on:
       - minio
   minio:
@@ -17,8 +17,8 @@ services:
     ports:
       - "9000:9000"
     environment:
-      MINIO_ACCESS_KEY: "minioadmin"
-      MINIO_SECRET_KEY: "minioadmin"
+      MINIO_ROOT_USER: "minioadmin"
+      MINIO_ROOT_PASSWORD: "minioadmin"
     volumes:
       - ./data:/data
     command: server /data

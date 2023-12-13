@@ -1,5 +1,4 @@
 from minio import Minio
-from minio.deleteobjects import DeleteObject
 from minio.error import S3Error
 import pickle
 import io
