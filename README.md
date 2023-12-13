@@ -43,5 +43,5 @@ To interact with app use the command ```docker-compose up``` and than have a goo
 </details>
 
 Done!<br>
-<img src="[[[https://media.giphy.com/media/KzM1lAfJjCWNq/giphy.gif](https://www.tiktok.com/discover/ich-will-nicht-wolf-sticker)https://www.tiktok.com/discover/ich-will-nicht-wolf-sticker](https://www.tiktok.com/@romildamalfoy/video/7309954879424892165?is_from_webapp=1&sender_device=pc)https://www.tiktok.com/@romildamalfoy/video/7309954879424892165?is_from_webapp=1&sender_device=pc" width="240](https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExYW40bHNpbHo0bW1qeHEzNGhieWVtNjI3eWF5dmptOTNnbnRndTBuZSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/a7aOFe45g61JbiCl80/giphy.gif)https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExYW40bHNpbHo0bW1qeHEzNGhieWVtNjI3eWF5dmptOTNnbnRndTBuZSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/a7aOFe45g61JbiCl80/giphy.gif" height="200" />
+<img src="https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExYW40bHNpbHo0bW1qeHEzNGhieWVtNjI3eWF5dmptOTNnbnRndTBuZSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/a7aOFe45g61JbiCl80/giphy.gif)https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExYW40bHNpbHo0bW1qeHEzNGhieWVtNjI3eWF5dmptOTNnbnRndTBuZSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/a7aOFe45g61JbiCl80/giphy.gif" height="200" />
 
