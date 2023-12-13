@@ -23,12 +23,11 @@ class FileSave:
 
     def load_model_from_minio(self, model_name):
         object_name = f"{model_name}.pkl"
-        local_model_path = f"models/local_{model_name}.pkl"
 
         try:
             model_data = self.minio_client.get_object(self.bucket_name, object_name)
             loaded_model_info = pickle.loads(model_data.read())
-            print(f"Model '{model_name}' downloaded from Minio to '{local_model_path}'")
+            print(f"Model '{model_name}' downloaded from Minio")
         except S3Error as e:
             print(f"Error downloading model: {e}")
             return None
@@ -45,7 +44,7 @@ class FileSave:
             print(f"Error getting list of models: {e}")
 
     def delete_model_from_minio(self, model_name):
-        object_name = f"{self.bucket_name}/{model_name}.pkl"
+        object_name = f"{model_name}.pkl"
 
         try:
             self.minio_client.remove_object(self.bucket_name, object_name)
