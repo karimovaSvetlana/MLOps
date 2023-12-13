@@ -9,6 +9,12 @@ class FileSave:
         self.minio_client = Minio(minio_host, access_key=access_key, secret_key=secret_key, secure=secure)
         self.bucket_name = "data"
 
+        if self.minio_client.bucket_exists(self.bucket_name):
+            print(f"{self.bucket_name} exists")
+        else:
+            self.minio_client.make_bucket(self.bucket_name)
+            print(f"Created {self.bucket_name}")
+
     def save_model_to_minio(self, model, model_name, hyperparameters):
         model_info = {'model': model, 'hyperparameters': hyperparameters}
         model_bytes = pickle.dumps(model_info)
