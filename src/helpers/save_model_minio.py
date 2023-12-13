@@ -48,7 +48,15 @@ class FileSave:
         object_name = f"{model_name}.pkl"
 
         try:
-            self.minio_client.remove_versions(self.bucket_name, object_name)
-            print(f"Model '{model_name}' deleted from Minio bucket '{self.bucket_name}'")
+            versions = self.minio_client.list_object_versions(self.bucket_name, object_name)
+
+            # Delete each version
+            for version in versions:
+                version_id = version.version_id
+                self.minio_client.remove_object(
+                    self.bucket_name, object_name, version_id=version_id
+                )
+            # self.minio_client.remove_versions(self.bucket_name, object_name)
+            print(f"All versions of model '{model_name}' deleted from Minio bucket '{self.bucket_name}'")
         except S3Error as e:
             print(f"Error deleting model: {e}")
