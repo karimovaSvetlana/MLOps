@@ -54,7 +54,7 @@ def train_model(
         f"{model_name}_{len([i for i in file_saver.list_of_models_minio() if model_name in i]) + 1}"
     )
 
-    file_saver.save_model_to_minio(model, model_name)
+    file_saver.save_model_to_minio(model, model_name, hyperparameters)
 
     return {"model_name": model_name, "hyperparameters": hyperparameters}
 
@@ -83,8 +83,8 @@ def predict(model_name: str, prediction_data: PredictionData):
         dict with predictions
     </pre>
     """
-    model = file_saver.load_model_from_minio(model_name)
-    prediction = model.predict(prediction_data.features)
+    model_info = file_saver.load_model_from_minio(model_name)
+    prediction = model_info['model'].predict(prediction_data.features)
     return {"prediction": prediction}
 
 
@@ -116,11 +116,11 @@ def retrain_model(
     """
     if model_name not in file_saver.list_of_models_minio():
         raise HTTPException(status_code=404, detail="Model not found")
-    model = file_saver.load_model_from_minio(model_name)
+    model, hyperparameters = file_saver.load_model_from_minio(model_name)
     model.fit(training_data.features, training_data.labels)
 
     file_saver.delete_model_from_minio(model_name)
-    file_saver.save_model_to_minio(model, model_name)
+    file_saver.save_model_to_minio(model, model_name, hyperparameters)
     return {"model_name": model_name, "hyperparameters": hyperparameters}
 
 
@@ -141,6 +141,7 @@ def delete_model(model_name: str):
     models_list = file_saver.list_of_models_minio()
     if model_name not in models_list:
         raise HTTPException(status_code=404, detail="Model not found")
+
     model_info = file_saver.load_model_from_minio(model_name)
     file_saver.delete_model_from_minio(f"{model_name}.pkl")
     return {
