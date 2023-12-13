@@ -26,14 +26,12 @@ class FileSave:
         local_model_path = f"models/local_{model_name}.pkl"
 
         try:
-            self.minio_client.fget_object(self.bucket_name, object_name, local_model_path)
+            model_data = self.minio_client.get_object(self.bucket_name, object_name)
+            loaded_model_info = pickle.loads(model_data.read())
             print(f"Model '{model_name}' downloaded from Minio to '{local_model_path}'")
         except S3Error as e:
             print(f"Error downloading model: {e}")
             return None
-
-        with open(local_model_path, 'rb') as file:
-            loaded_model_info = pickle.load(file)
 
         return loaded_model_info['model'], loaded_model_info['hyperparameters']
 
