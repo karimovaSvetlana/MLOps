@@ -92,7 +92,7 @@ def retrain_model(
     hyperparameters: Union[
         LinRegHyperparameters, DecisionTreeHyperparameters, RandomForestHyperparameters
     ],
-    training_data: TrainingData,
+    training_data: TrainingData
 ):
     """
     <pre>
@@ -116,7 +116,7 @@ def retrain_model(
 
     file_saver.delete_model_from_minio(model_name)
 
-    model = create_model(model_name, hyperparameters)
+    model = create_model("_".join(model_name.split('_')[:2]), hyperparameters)
     model.fit(training_data.features, training_data.labels)
 
     file_saver.save_model_to_minio(model, model_name, hyperparameters)
