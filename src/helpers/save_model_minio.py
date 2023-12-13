@@ -49,6 +49,6 @@ class FileSave:
 
         try:
             self.minio_client.remove_object(self.bucket_name, object_name)
-            print(f"Model '{model_name}' deleted from Minio bucket '{self.bucket_name}'")
+            print(f"Model '{object_name}' deleted from Minio bucket '{self.bucket_name}'")
         except S3Error as e:
             print(f"Error deleting model: {e}")
