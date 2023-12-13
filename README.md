@@ -22,6 +22,8 @@ Project within MLOps subject in HSE
 ### Usage
 
 To start using app - firstly pull images from dockerhub
+- karimovasvetlana/minio:latest
+- karimovasvetlana/mlops-app:latest
 
 To interact with app use the command ```docker-compose up``` and than have a good time with Swagger)))
 
