@@ -8,6 +8,13 @@ Project within MLOps subject in HSE
 2. `test_app.py` - tests with pytest
 3. `poetry.lock` - dependencies
 4. `pyprogect.toml` - result of venv creation
+5. gRPC files:
+    - `model_service.proto` - main file that creates configuration for the app
+    - `model_service_pb2.py` - file created with compilation of .proto file
+    - `model_service_pb2_grpc.py` - file created with compilation of .proto file
+    - `grpc_server.py` - file to raise a server
+    - `grpc_client.py` - file to test if everything works
+
 
 ### Usage
 To start using app - firstly install all libs
