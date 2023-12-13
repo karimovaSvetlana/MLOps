@@ -4,7 +4,7 @@ from sklearn.tree import DecisionTreeRegressor
 from typing import Union
 from fastapi import HTTPException
 
-from src.helpers.typing_models import LinRegHyperparameters, DecisionTreeHyperparameters, RandomForestHyperparameters
+from helpers.typing_models import LinRegHyperparameters, DecisionTreeHyperparameters, RandomForestHyperparameters
 
 
 def create_model(

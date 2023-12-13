@@ -1,8 +1,8 @@
 from typing import List, Dict, Union
 from fastapi import FastAPI, HTTPException
 
-from src.helpers.create_models import create_model
-from src.helpers.typing_models import (
+from helpers.create_models import create_model
+from helpers.typing_models import (
     LinRegHyperparameters,
     DecisionTreeHyperparameters,
     RandomForestHyperparameters,
@@ -11,7 +11,7 @@ from src.helpers.typing_models import (
     ModelList,
     PredictionData
 )
-from src.helpers.save_model_minio import FileSave
+from helpers.save_model_minio import FileSave
 
 app = FastAPI()
 file_saver = FileSave("127.0.0.1:9000", "minioadmin", "minioadmin")
@@ -145,7 +145,7 @@ def delete_model(model_name: str):
     }
 
 
-# if __name__ == "__main__":
-#     import uvicorn
-#
-#     uvicorn.run(app, host="0.0.0.0", port=8000)
+if __name__ == "__main__":
+    import uvicorn
+
+    uvicorn.run(app, host="0.0.0.0", port=8000)
