@@ -15,11 +15,6 @@ from helpers.save_model_minio import FileSave
 
 app = FastAPI()
 file_saver = FileSave("127.0.0.1:9000", "minioadmin", "minioadmin")
-# шобы не падало надо поднять сервер: minio server /Users/isupport/Desktop/code/MLOps. Если сервер не стоит - это плохо
-
-# JSON с моделью и гиперпараметрами по pydantic - СЕЙЧАС ПОЛОМАНО так как удалила хранение в оперативке
-# также jsonф с примерами создать для версионирования датасетов
-# собрать все в docker (и запустить в docker-compose), как запушить в docker-hub?
 
 
 @app.post("/train_model/{model_name}", response_model=ModelInfo)
@@ -150,7 +145,7 @@ def delete_model(model_name: str):
     }
 
 
-if __name__ == "__main__":
-    import uvicorn
-
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+# if __name__ == "__main__":
+#     import uvicorn
+#
+#     uvicorn.run(app, host="0.0.0.0", port=8000)
