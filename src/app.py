@@ -14,7 +14,7 @@ from helpers.typing_models import (
 from helpers.save_model_minio import FileSave
 
 app = FastAPI()
-file_saver = FileSave('127.0.0.1:9000', 'minioadmin', 'minioadmin')
+file_saver = FileSave("127.0.0.1:9000", "minioadmin", "minioadmin")
 # шобы не падало надо поднять сервер: minio server /Users/isupport/Desktop/code/MLOps. Если сервер не стоит - это плохо
 
 # JSON с моделью и гиперпараметрами по pydantic - СЕЙЧАС ПОЛОМАНО так как удалила хранение в оперативке
@@ -40,11 +40,11 @@ def train_model(
         hyperparameters: dict of hyperparameters names as keys and its values as values
         training_data:
             json like {
-                'features': [[1.0, 2.0], [2.0, 3.0], [3.0, 4.0]],
-                'labels': [2.5, 3.5, 4.5]
+                "features": [[1.0, 2.0], [2.0, 3.0], [3.0, 4.0]],
+                "labels": [2.5, 3.5, 4.5]
             }
     Returns:
-        dict with name of the trained model and it's hyperparameters
+        dict with name of the trained model and it"s hyperparameters
     </pre>
     """
     model = create_model(model_name, hyperparameters)
@@ -76,7 +76,7 @@ def predict(model_name: str, prediction_data: PredictionData):
             * random_forest
         prediction_data:
             json like {
-                'features': [[1.0, 2.0], [2.0, 3.0], [3.0, 4.0]]
+                "features": [[1.0, 2.0], [2.0, 3.0], [3.0, 4.0]]
             }
 
     Returns:
@@ -107,11 +107,11 @@ def retrain_model(
         hyperparameters: dict of hyperparameters names as keys and its values as values
         training_data:
             json like {
-                'features': [[1.0, 2.0], [2.0, 3.0], [3.0, 4.0]],
-                'labels': [2.5, 3.5, 4.5]
+                "features": [[1.0, 2.0], [2.0, 3.0], [3.0, 4.0]],
+                "labels": [2.5, 3.5, 4.5]
             }
     Returns:
-        dict with name of the trained model and it's hyperparameters
+        dict with name of the trained model and it"s hyperparameters
     </pre>
     """
     if model_name not in file_saver.list_of_models_minio():
@@ -141,10 +141,11 @@ def delete_model(model_name: str):
     models_list = file_saver.list_of_models_minio()
     if model_name not in models_list:
         raise HTTPException(status_code=404, detail="Model not found")
+    model_info = file_saver.load_model_from_minio(model_name)
     file_saver.delete_model_from_minio(f"{model_name}.pkl")
     return {
         "model_name": model_name,
-        "hyperparameters": {}
+        "hyperparameters": model_info["hyperparameters"]
     }
 
 
