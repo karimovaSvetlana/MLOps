@@ -83,8 +83,8 @@ def predict(model_name: str, prediction_data: PredictionData):
         dict with predictions
     </pre>
     """
-    model_info = file_saver.load_model_from_minio(model_name)
-    prediction = model_info['model'].predict(prediction_data.features)
+    model, hyperparameters = file_saver.load_model_from_minio(model_name)
+    prediction = model.predict(prediction_data.features)
     return {"prediction": prediction}
 
 
@@ -142,11 +142,11 @@ def delete_model(model_name: str):
     if model_name not in models_list:
         raise HTTPException(status_code=404, detail="Model not found")
 
-    model_info = file_saver.load_model_from_minio(model_name)
+    model, hyperparameters = file_saver.load_model_from_minio(model_name)
     file_saver.delete_model_from_minio(f"{model_name}.pkl")
     return {
         "model_name": model_name,
-        "hyperparameters": model_info["hyperparameters"]
+        "hyperparameters": hyperparameters
     }
 
 
