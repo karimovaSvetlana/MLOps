@@ -23,8 +23,7 @@ Project within MLOps subject in HSE
 
 To start using app - firstly pull images from dockerhub
 
-To interact with app use the command below
-```docker-compose up```
+To interact with app use the command ```docker-compose up``` and than have a good time with Swagger)))
 
 <details>
     <summary>archive</summary>
@@ -44,5 +43,5 @@ To interact with app use the command below
 </details>
 
 Done!<br>
-<img src="https://media.giphy.com/media/KzM1lAfJjCWNq/giphy.gif" width="240" height="200" />
+<img src="[https://media.giphy.com/media/KzM1lAfJjCWNq/giphy.gif](https://www.tiktok.com/discover/ich-will-nicht-wolf-sticker)https://www.tiktok.com/discover/ich-will-nicht-wolf-sticker" width="240" height="200" />
 
