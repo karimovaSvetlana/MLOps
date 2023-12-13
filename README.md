@@ -28,7 +28,7 @@ To start using app - firstly pull images from dockerhub
 To interact with app use the command ```docker-compose up``` and than have a good time with Swagger)))
 
 <details>
-    <summary>archive</summary>
+    <summary>archive from hw1</summary>
     To start using app - firstly install all libs
     ```
     poetry init  # creates your personal venv
