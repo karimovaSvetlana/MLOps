@@ -45,9 +45,7 @@ def train_model(
     model = create_model(model_name, hyperparameters)
     model.fit(training_data.features, training_data.labels)
 
-    model_list = file_saver.list_of_models_minio() if file_saver.list_of_models_minio()) is not None else []
-
-    model_name = f"{model_name}_{len([i for i in model_list if model_name in i]) + 1}"
+    model_name = f"{model_name}_{len([i for i in file_saver.list_of_models_minio() if model_name in i]) + 1}"
     file_saver.save_model_to_minio(model, model_name, hyperparameters)
 
     return {"model_name": model_name, "hyperparameters": hyperparameters}
@@ -82,7 +80,6 @@ def predict(model_name: str, prediction_data: PredictionData):
     return {"prediction": prediction}
 
 
-# Endpoint to retrain a specific model
 @app.put("/retrain_model/{model_name}", response_model=ModelInfo)
 def retrain_model(
     model_name: str,
@@ -120,7 +117,6 @@ def retrain_model(
     return {"model_name": model_name, "hyperparameters": hyperparameters}
 
 
-# Endpoint to delete a specific model
 @app.delete("/delete_model/{model_name}", response_model=ModelInfo)
 def delete_model(model_name: str):
     """

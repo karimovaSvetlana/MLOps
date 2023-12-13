@@ -54,7 +54,7 @@ class ModelInfo(BaseModel):
 
 
 class ModelList(BaseModel):
-    models: List[str]
+    models: Union[List[str], List]
 
 
 class PredictionData(BaseModel):
